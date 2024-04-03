@@ -1,4 +1,8 @@
-# Laboratorul 04: Git & Github
+# Laboratorul 04: Git vs Github
+
+<p align="center">
+  <img src="./images/git_vs_github.png" alt="GIT_VS_GITHUB">
+</p>
 
 ## Version Control
 
@@ -49,10 +53,11 @@ Astfel, Git este utilitarul folosit în terminal, iar GitHub este serverul și a
 ### Pregătirea inițială a mediului Git
 
 ```bash
-$ git config --global user.name "Prenume Nume"
-$ git config --global user.email "adresa_de_email@example.com"
-$ git config --list
+git config --global user.name "Prenume Nume"
+git config --global user.email "adresa_de_email@example.com"
+git config --list
 ```
+
 ### Crearea unui fork al unui repository
 
 Notiunea de `fork` nu este specifica git-ului, ci platformelor care stocheaza repository-uri, precum Github si Gitlab.
@@ -62,7 +67,7 @@ Pentru a crea un fork al unui repository stocat pe Github, navigati pe pagina re
 ### Clonarea unui repository
 
 ```bash
-$ git clone [url_repository]
+git clone [url_repository]
 ```
 
 ### Remote, origin and upstream
@@ -76,7 +81,7 @@ Pentru a putea sincroniza cele 2 repository-uri, se foloseste un alt `remote`, n
 Pentru a adauga un `remote` numit `upstream`, se poate folosi comanda urmatoare, in folder-ul unui repository:
 
 ```bash
-$ git remote add upstream <url_repository_original>
+git remote add upstream <url_repository_original>
 ```
 
 ### Mutarea pe un branch existent
@@ -84,29 +89,29 @@ $ git remote add upstream <url_repository_original>
 Pentru a ne muta pe un branch existent pe un remote, prima data e nevoie sa fie identificate branch-urile de pe acel remote, folosind comanda
 
 ```bash
-$ git fetch [remote]
+git fetch [remote]
 ```
 
 Apoi se poate face schimbarea pe branch-ul dorit, folosind
 
 ```bash
-$ git switch [nume_branch]
+git switch [nume_branch]
 ```
 
 Exemplu:
 
 ```bash
-$ git fetch origin
-$ git switch test
+git fetch origin
+git switch test
 ```
 
 Daca avem mai multe remote-uri, care contin branch-uri cu acelasi nume, pot fi aduse local cu denumiri diferite
 
 ```bash
-$ git fetch origin
-$ git fetch upstream
-$ git switch -c test_origin origin/test
-$ git switch -c test_upstream upstream/test
+git fetch origin
+git fetch upstream
+git switch -c test_origin origin/test
+git switch -c test_upstream upstream/test
 ```
 
 ### Crearea unui branch nou
@@ -114,14 +119,14 @@ $ git switch -c test_upstream upstream/test
 Un branch nou se poate crea local, folosind
 
 ```bash
-$ git checkout -b [nume_branch_nou]
+git checkout -b [nume_branch_nou]
 ```
 
 Pentru ca branch-ul sa fie vizibil si din alte locatii, trebuie publicat intr-un remote.
 Pentru asta se poate folosi comanda
 
 ```bash
-$ $ git push [nume_remote] [nume_branch_nou]
+git push [nume_remote] [nume_branch_nou]
 ```
 
 ### Crearea unui commit
@@ -131,14 +136,14 @@ Inainte de a se putea crea un `commit`, trebuie marcate modificarile care vor fa
 Apoi, commit-ul se poate crea folosind `git commit`, ca in exemplul de mai jos:
 
 ```bash
-$ git add src/main.c src/helpers.h
-$ git commit -m "Add the main source"
+git add src/main.c src/helpers.h
+git commit -m "Add the main source"
 ```
 
 Pentru a sincroniza remote-ul cu modificarile facute, commit-ul trebuie trimis catre remote, folosind
 
 ```bash
-$ git push
+git push
 ```
 
 ### Informatii despre branch-ul curent
@@ -146,18 +151,20 @@ $ git push
 `git status` si `git log` sunt folosite pentru a afla detalii despre repository-ul si branch-ul curent.
 
 `git status` afiseaza informatii precum
+
 * numele branch-ului curent
 * daca este la zi cu branch-ul remote
 * ce fisiere au fost modificate si nu fac parte dintr-un commit
 * ce fisiere nu au fost marcate pentru a face parte dintr-un commit
 
-![](images/status.png)
+![STATUS](images/status.png)
 
 `git log` afiseaza infromatii despre commit-urile de pe un branch.
 
-![](images/log.png)
+![LOG](images/log.png)
 
 Aceste informatii sunt:
+
 * sha-ul fiecarui commit
 * autorul commit-ului
 * data cand a fost adaugat
@@ -168,14 +175,15 @@ Faptul ca un commit este marcat cu `HEAD` indica ca acesta este ultimul commit a
 Se poate modifica commit-ul curent, folosind
 
 ```bash
-$ git checkout [SHA_commit]
+git checkout [SHA_commit]
 ```
 
 ### Sincronizare
 
 Pentru a aduce modificarile dintr-un repository remote intr-unul local, se foloseste comanda.
+
 ```bash
-$ git pull
+git pull
 ```
 
 In cazul in care pe repository-ul local este activ un `branch`, comanda de mai sus va sincroniza branch-ul local cu cel remote.
@@ -183,7 +191,7 @@ In cazul in care pe repository-ul local este activ un `branch`, comanda de mai s
 Exista situatii in care, fiind pe un branch copil, pornit dintr-un branch parinte (ex. `main`), dorim sa integram modificarile din parinte in branch-ul nostru.
 Aici intervine notiunea de `rebase`.
 
-![](images/branches.png)
+![BRANCHES](images/branches.png)
 
 ### Rebase
 
@@ -193,26 +201,29 @@ Baza unui branch este ultimul commit comun dintre branch-ul copil si branch-ul p
 Cea mai simpla metoda de a integra schimbarile dintr-un branch parinte intr-unul copil este prin folosirea comenzii
 
 ```bash
-$ git pull --rebase [remote] [nume_parinte]
+git pull --rebase [remote] [nume_parinte]
 ```
 
 Pentru a aduce schimbarile din branch-ul `main` din `remote`-ul `origin`, comanda devine
 
 ```bash
-$ git pull --rebase origin main
+git pull --rebase origin main
 ```
 
-![](images/branches-rebase.png)
+![REBASE](images/branches-rebase.png)
 
 Dupa rebase, daca dorim sa trimitem modificarile catre remote, folosind comanda
+
 ```bash
-$ git push
+git push
 ```
+
 vom observa ca istoricul contine commit-uri duplicate.
 
 Pentru a avea un istoric curat, e nevoie se folosim comanda
+
 ```bash
-$ git push --force
+git push --force
 ```
 
 Aceasta varianta de `push` va forta suprascrierea istoricului de pe remote cu cel de pe local.
@@ -222,24 +233,28 @@ Aceasta varianta de `push` va forta suprascrierea istoricului de pe remote cu ce
 Varianta de mai sus functioneaza doar daca schimbarile locale sunt sub forma unui commit.
 In cazul in care exista fisiere modificate, dar care nu au fost adaugate intr-un commit, comanda de `pull` va esua.
 Pentru asta exista 2 solutii:
+
 1. Crearea unui commit - nu este intodeauna de dorit (nu este finalizat ce vrem sa adaugam)
 2. Folosirea functionalitatii de `stash`
 
 `Stash` ne permite sa salvam modificarile care nu fac parte dintr-un commit.
 
 Pentru a salva toate modificarile dintr-ul repository, se foloseste comanda
+
 ```bash
-$ git stash push *
+git stash push *
 ```
 
 Pentru a salva doar un fisier, se foloseste comanda
+
 ```bash
-$ git stash push [fisier]
+git stash push [fisier]
 ```
 
 Restaurarea modificarilor salvate se face cu comanda
+
 ```bash
-$ git stash pop
+git stash pop
 ```
 
 Deoarece acest mecanism functioneaza ca o stiva, comanda de `pop` va restaura doar fisierele salvate de ultima comanda de `push`.
@@ -255,18 +270,19 @@ Initial, pe `feature_branch_1` a fost adaugat fisierul `file.txt`.
 Branch-ul `feature_branch_2` a fost creat dupa adaugarea fisierului.
 Apoi, pe ambele branch-uri au fost facute modificari asupra fisierului.
 
-![](images/file_branch_1.png)
-![](images/file_branch_2.png)
+![B1](images/file_branch_1.png)
+![B2](images/file_branch_2.png)
 
 Daca se decide integrarea schimbarilor de pe branch-ul 1 pe branch-ul 2, va aparea un merge conflict.
 Acesta va fi indicat de git, in fisierele in care se afla conflictele.
 
-![](images/conflict.png)
+![CONFLICT](images/conflict.png)
 
 Pentru a rezolva un conflict, trebuie urmati urmatorii pasi:
+
 1. Trebuie pastrate una dintre variante, sau ambele, si eliminate delimitatoarele `<<<<<<< HEAD`, `=======` si `>>>>>>> <sha>`, apoi salvat fisierul
-2. `$ git add [fisier]`
-3. `$ git rebase --continue`, daca merge conflict-ul a aparut in urma unui rebase, sau `git merge --continue`, in cazul unui merge.
+2. `git add [fisier]`
+3. `git rebase --continue`, daca merge conflict-ul a aparut in urma unui rebase, sau `git merge --continue`, in cazul unui merge.
 
 ### Organizarea istoricului de commit-uri
 
@@ -281,19 +297,23 @@ Git pune la dispozitie unelte pentru a reface istoricul de commit-uri.
 #### Amend
 
 Comanda
+
 ```bash
-$ git commit --amend
+git commit --amend
 ```
+
 modifica ultimul commit, prin modificarea mesajului commit-ului, sau a schimbarilor din el.
 Problema cu aceasta comanda este ca in istoric vor aparea atat commit-ul vechi, cat si cel modificat cu `--amend`.
-De aceea, e necesara folosirea lui `$ git push --force`.
+De aceea, e necesara folosirea lui `git push --force`.
 
 #### Rebase interactiv
 
 Comanda
+
 ```bash
-$ git rebase -i
+git rebase -i
 ```
+
 ne permite sa modificam istoricul mai mult decat `--amend`: ne permite sa facem amend, sa imbinam commit-uri (`squash`), sa stergem commit-uri, sau chiar sa le modificam ordinea.
 Comanda mai asteapta si intervalul de commit-uri asupra carora se vor face modificarile.
 De obicei, acest interval este dat sub forma `@~N`, care inseamna "ultimele N commit-uri". 
@@ -302,14 +322,18 @@ De obicei, acest interval este dat sub forma `@~N`, care inseamna "ultimele N co
 
 Exista situatii cand este mai simplu sa fie refacut istoricul de commit-uri stergandu-le pe toate si rescriindu-le.
 Pentru asta se poate folosi
+
 ```bash
-$ git reset [interval]
+git reset [interval]
 ```
+
 Aceasta comanda sterge commit-urile, dar pastreaza modificarile aduse de acele commit-uri.
 Exista varianta
+
 ```bash
-$ git reset --hard [interval]
+git reset --hard [interval]
 ```
+
 care sterge si modificarile aduse fisierelor.
 
 ### Bisect
@@ -322,16 +346,17 @@ Git pune la dispozitie o unealta pentru a simplifica procesul: `git bisect`.
 Aceasta comanda face o cautare binara interval de commit-uri definit de utilizator, cautand primul commit "rau".
 
 Pentru a folosi `git bisect`, trebuie urmati urmatorii pasi:
-1. `$ git bisect start`
-2. `$ git bisect bad`
-3. `$ git checkout [sha_ultimul_commit_bun]`
-4. `$ git bisect good`
+
+1. `git bisect start`
+2. `git bisect bad`
+3. `git checkout [sha_ultimul_commit_bun]`
+4. `git bisect good`
 
 Dupa aceste comenzi, git va trece prin fiecare commit si va astepta sa fie marcat ca `good` sau `bad`, pana va gasi primul commit `bad` din istoric.
 
 Pentru a reveni la starea de dinainte de `git bisect start`, se foloseste comanda `git bisect reset`.
 
-## Exercitii:
+## Exercitii
 
 1. Faceti fork repository-ului, cu optiunea de a copia si branch-urile existente.
 Clonati repository-ul obtinut.
@@ -346,15 +371,15 @@ Pentru urmatoarele exercitii, veti lucra pe diferite branch-uri din acest reposi
 Programul trebuie sa citeasca un numar de la tastatura, si sa intoarca valoarea citita adunata cu 5.
 Pentru fiecare exercitiu, veti crea un pull request catre branch-ul `main` din fork-ul vostru.
 
-3. Folosind `git commit --amend`, modificati mesajul de commit al ultimului commit de pe branch-ul `amend_branch`.
+1. Folosind `git commit --amend`, modificati mesajul de commit al ultimului commit de pe branch-ul `amend_branch`.
 Nu conteaza in ce modificati mesajul.
-4. Pe parcursul dezvoltarii, intern-ul a introdus un bug: numarul citit nu se aduna cu 5.
+2. Pe parcursul dezvoltarii, intern-ul a introdus un bug: numarul citit nu se aduna cu 5.
 Folosind `git bisect`, gasiti commit-ul care a introdus bug-ul.
 (Nu conteaza daca e evident unde apare, folositi `bisect`).
 Adaugati un commit care rezolva problema, pe branch-ul `bisect_branch`.
-5. Folosind `git rebase --interactive`, faceti `squash` tuturor commit-urilor de pe branch-ul `rebase_interactive_branch` care nu adauga o functionalitate noua.
-6. Folosind `git reset`, eliminati toate commit-urile de pe branch-ul `reset_soft_branch` si creati un singur commit cu intreaga implementare.
-7. Manager-ul intern-ului tocmai a zis ce task avea de fapt de facut: sa genereze un numar random in 5 moduri diferite.
+3. Folosind `git rebase --interactive`, faceti `squash` tuturor commit-urilor de pe branch-ul `rebase_interactive_branch` care nu adauga o functionalitate noua.
+4. Folosind `git reset`, eliminati toate commit-urile de pe branch-ul `reset_soft_branch` si creati un singur commit cu intreaga implementare.
+5. Manager-ul intern-ului tocmai a zis ce task avea de fapt de facut: sa genereze un numar random in 5 moduri diferite.
 Folosind `git reset --hard` Eliminati toate modificarile de pe branch-ul `reset_hard_branch`, si implementati ce i s-a cerut de fapt.
 (E o mica provocare sa gasiti a 5-a metoda - nu citire din `/dev/random` sau `rdseed`).
 
