@@ -1,4 +1,4 @@
-# Laboratorul 04: Git vs Github
+# Git vs Github
 
 <p align="center">
   <img src="./images/git_vs_github.png" alt="GIT_VS_GITHUB">
